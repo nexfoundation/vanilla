@@ -1,0 +1,32 @@
+name: CI
+on: push
+
+jobs:
+  php_lint:
+    name: PHP 7.2 Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.2"
+          extensions: mbstring, intl, curl, dom
+          tools: composer
+
+      - &run_composer
+        name: Install Composer Packages
+        env:
+          VANILLA_BUILD_DISABLE_AUTO_BUILD: true
+        run: |
+          composer install --optimize-autoloader
+      - name: PHP Lint
+        run: |
+          .circleci/scripts/php-lint.sh ./applications
+          .circleci/scripts/php-lint.sh ./conf
+          .circleci/scripts/php-lint.sh ./library
+          .circleci/scripts/php-lint.sh ./plugins
+          .circleci/scripts/php-lint.sh ./themes
