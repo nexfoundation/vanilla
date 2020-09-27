@@ -30,6 +30,7 @@
     <testsuites>
         <testsuite name="Library">
             <directory suffix="Test.php">./tests/Library/</directory>
+            <exclude>./tests/Library/Vanilla/Formatting/DateTimeFormatterTest.php</exclude>
         </testsuite>
         <testsuite name="Formatting">
             <directory suffix="Test.php">./tests/Library/Vanilla/Formatting</directory>

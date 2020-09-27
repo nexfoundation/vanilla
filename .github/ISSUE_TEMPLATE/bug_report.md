@@ -7,12 +7,6 @@ about: Create a report to help us improve
 **Describe the bug**
 A clear and concise description of what the bug is.
 
-**Vanilla info**
-1. Are you sure this is a core Vanilla problem and not caused by any addon you are using?
-2. Did you follow our generic troubleshooting steps already?
-3. What Vanilla version are you using?
-4. When did the issue start?
-
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'

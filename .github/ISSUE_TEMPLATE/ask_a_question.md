@@ -1,9 +1,9 @@
 ---
 name: Ask a Question
-about: The issue tracker is not for questions. If you have a question, please ask it on https://open.vanillaforums.com/.
+about: Let us know if you encounter any problem.
 ---
 
+:sparkles: The Issue Tracker is for the question about Nex Forum.
 
-🚨 The issue tracker is not for questions 🚨
-
-If you have a question, please ask it on https://open.vanillaforums.com/.
+If you have other questions about NEX Foundation,
+please visit the official website: [https://www.nexf.org](https://www.nexf.org/)

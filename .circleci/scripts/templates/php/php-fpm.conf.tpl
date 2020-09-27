@@ -1,6 +1,8 @@
 [global]
 
-[circleci]
+[www]
+user = www-data
+group = www-data
 listen = {PORT}
 listen.mode = 0666
 pm = static

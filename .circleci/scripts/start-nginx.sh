@@ -23,6 +23,7 @@ mkdir "$DIR/nginx"
 mkdir "$DIR/nginx/sites-enabled"
 
 # Build the default nginx config files.
+tpl "$TEMPLATES/php/php-fpm.conf.tpl" "/etc/php/7.2/fpm/pool.d/www.conf"
 tpl "$TEMPLATES/nginx/nginx.conf.tpl" "$DIR/nginx/nginx.conf"
 tpl "$TEMPLATES/nginx/fastcgi.conf.tpl" "$DIR/nginx/fastcgi.conf"
 tpl "$TEMPLATES/nginx/sites-enabled/default-site.conf.tpl" "$DIR/nginx/sites-enabled/default-site.conf"

@@ -1,0 +1,168 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  php_lint:
+    name: PHP 7.2 Lint and Static Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.2"
+          extensions: mbstring, intl, curl, dom
+          tools: composer
+
+      - name: Install Composer Packages
+        env:
+          VANILLA_BUILD_DISABLE_AUTO_BUILD: true
+        run: |
+          composer install --optimize-autoloader
+
+      - name: PHP Lint
+        run: |
+          .circleci/scripts/php-lint.sh ./applications
+          .circleci/scripts/php-lint.sh ./conf
+          .circleci/scripts/php-lint.sh ./library
+          .circleci/scripts/php-lint.sh ./plugins
+          .circleci/scripts/php-lint.sh ./themes
+
+      - name: PHP Static Analysis
+        run: |
+          ./vendor/bin/psalm
+
+  php_test:
+    name: PHP 7.2 ${{ matrix.build_types }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_types: ["Test", "Integration"]
+
+    env:
+      BUILD_TYPE: ${{ matrix.build_types }}
+
+    services:
+      MYSQL:
+        image: mysql:5.7.26
+        env:
+          MYSQL_USER: circleci
+          MYSQL_PASSWORD: ""
+          MYSQL_DATABASE: vanilla_test
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        ports:
+          - 3306:3306
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Checkout Script
+        uses: actions/checkout@v2
+        with:
+          repository: vanilla/ci-scripts
+          path: ./ci-scripts
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.2.19"
+          extensions: mbstring, intl, curl, dom
+          tools: composer
+
+      - name: Install Composer Packages
+        env:
+          VANILLA_BUILD_DISABLE_AUTO_BUILD: true
+        run: |
+          composer install --optimize-autoloader
+
+      - name: Test Setup
+        run: |
+          cp ./.circleci/scripts/templates/vanilla/conf/bootstrap.before.php ./conf/bootstrap.before.php
+          ./ci-scripts/prepare-mysql.sh
+          mysql -h 127.0.0.1 -u root -e \
+            "CREATE USER 'circleci'@'%'; GRANT ALL PRIVILEGES ON vanilla_test.* TO 'circleci'@'%' IDENTIFIED BY '';"
+          echo 127.0.0.1 vanilla.test | sudo tee -a /etc/hosts
+          cat /etc/hosts
+
+      - name: Library Tests
+        if: env.BUILD_TYPE == 'Test'
+        run: |
+          ./vendor/bin/phpunit \
+            -c phpunit.xml.dist \
+            --exclude-group=ignore \
+            --testsuite="Library" \
+            --log-junit ~/phpunit/library-junit.xml \
+            --coverage-clover=library-coverage.xml
+
+      - name: APIv2 Tests
+        if: env.BUILD_TYPE == 'Test'
+        run: |
+          ./vendor/bin/phpunit \
+            -c phpunit.xml.dist \
+            --exclude-group=ignore \
+            --testsuite="APIv2" \
+            --log-junit ~/phpunit/apiv2-junit.xml \
+            --coverage-clover=apiv2-coverage.xml
+
+      - name: APIv0 Tests
+        if: env.BUILD_TYPE == 'Integration'
+        run: |
+          ./.github/scripts/start-php-fpm.sh
+          ./vendor/bin/phpunit \
+            -c phpunit.xml.dist \
+            --exclude-group=ignore \
+            --testsuite="APIv0" \
+            --coverage-clover=apiv0-coverage.xml
+
+      - name: Models Tests
+        if: env.BUILD_TYPE == 'Integration'
+        run: |
+          ./vendor/bin/phpunit \
+            -c phpunit.xml.dist \
+            --exclude-group=ignore \
+            --testsuite="Models" \
+            --log-junit ~/phpunit/models-junit.xml \
+            --coverage-clover=models-coverage.xml
+
+  frontend_test:
+    name: Frontend Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+
+      - name: Cleaning up git directory
+        run: |
+          rm -rf .git
+
+      - name: Install Yarn Packages
+        run: |
+          yarn install --pure-lockfile
+          yarn install-all
+
+      - name: Lint and Type Check
+        run: |
+          yarn lint -w 4
+          yarn prettier --check "**/src/scripts/**/*"
+          yarn check-types
+
+      - name: Build and Test
+        run: |
+          yarn build
+          yarn test
