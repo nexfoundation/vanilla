@@ -1,0 +1,38 @@
+<div class="Frame">
+    <div class="Frame-top">
+        <main class="Frame-body">
+            {{ renderBanner() }}
+            <div class="Frame-content">
+                <div class="Container">
+                    <div class="Frame-contentWrap">
+                        <div class="Frame-details">
+                            {% if not isHomepage %}
+                                <div class="Frame-row">
+                                    <nav class="BreadcrumbsBox" aria-label={{ t("Breadcrumb") }}>
+                                        {{ renderBreadcrumbs() }}
+                                    </nav>
+                                </div>
+                            {% endif %}
+                            <div
+                                class="Frame-row">
+
+                                <!-- Main Content -->
+                                <section class="Content MainContent">
+                                    {{ renderControllerAsset("Content") }}
+                                </section>
+                                <!-- Main Content END -->
+
+                                <!-- Main Panel -->
+                                <div class="Panel Panel-main">
+                                    {{ renderControllerAsset("Panel") }}
+                                </div>
+                                <!-- Main Panel END -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
