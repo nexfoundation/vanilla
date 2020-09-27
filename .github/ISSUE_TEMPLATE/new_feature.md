@@ -8,8 +8,8 @@ about: Create an issue proposing a new feature or an enhancement of an existing 
 
 **Describe the Feature**
 
-<!-- 
-A clear concise short description of the feature 
+<!--
+A clear concise short description of the feature
 
 Example:
 Add first class support for mobile responsive themes. Responsive themes now have dedicated UI in dashboard and better support throughout plugins.
@@ -56,7 +56,7 @@ Add mockups for UI features if available.
 -->
 
 **Related Issues**
-<!-- 
+<!--
 - Issue 1
 - Issue 2
 - Issue 3
