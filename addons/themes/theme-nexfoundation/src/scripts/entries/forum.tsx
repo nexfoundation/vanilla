@@ -4,10 +4,10 @@
  */
 
 import "../../scss/custom.scss";
-import React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Advertisement } from "../components/advertisement"
+import React from "react";
+import * as ReactDOM from "react-dom";
+import { Advertisement } from "../components/advertisement";
 
-window.onload = function () {
-  ReactDOM.render(<Advertisement />, document.getElementById('nex-advertisement'));
+window.onload = function() {
+    ReactDOM.render(<Advertisement />, document.getElementById("nex-advertisement"));
 };
