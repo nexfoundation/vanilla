@@ -15,18 +15,17 @@
                             {% endif %}
                             <div
                                 class="Frame-row">
+                                <!-- Main Panel -->
+                                <div class="Panel Panel-main">
+                                    {{ renderControllerAsset("Panel") }}
+                                </div>
+                                <!-- Main Panel END -->
 
                                 <!-- Main Content -->
                                 <section class="Content MainContent">
                                     {{ renderControllerAsset("Content") }}
                                 </section>
                                 <!-- Main Content END -->
-
-                                <!-- Main Panel -->
-                                <div class="Panel Panel-main">
-                                    {{ renderControllerAsset("Panel") }}
-                                </div>
-                                <!-- Main Panel END -->
 
                             </div>
                         </div>

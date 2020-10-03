@@ -16,7 +16,8 @@
     "sites": [],
     "type": "theme",
     "Features": {
-        "DataDrivenTheme": true
+        "DataDrivenTheme": true,
+        "SharedMasterView": true
     },
     "assets": {
         "footer": {
