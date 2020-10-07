@@ -5,9 +5,17 @@
 
 import "../../scss/custom.scss";
 import React from "react";
-import * as ReactDOM from "react-dom";
 import { Advertisement } from "../components/advertisement";
+import { onContent } from "@vanilla/library/src/scripts/utility/appUtils";
+import { mountReact } from "@vanilla/react-utils";
 
-window.onload = function() {
-    ReactDOM.render(<Advertisement />, document.getElementById("nex-advertisement"));
-};
+onContent(() => {
+    bootstrap();
+});
+
+function bootstrap() {
+    const adElement = document.getElementById("nex-advertisement");
+    if (adElement) {
+        mountReact(<Advertisement />, adElement, undefined);
+    }
+}

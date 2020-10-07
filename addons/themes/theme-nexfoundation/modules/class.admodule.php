@@ -1,5 +1,6 @@
 <?php
 class AdModule extends Gdn_Module {
+
     public function assetTarget() {
         return 'Panel';
     }
