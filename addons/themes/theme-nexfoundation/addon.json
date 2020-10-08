@@ -1,0 +1,40 @@
+{
+    "key": "theme-nexfoundation",
+    "name": "NEX Foundation",
+    "description": "NEX Forum Theme",
+    "version": "1.0.0",
+    "hidden": false,
+    "authors": [
+        {
+            "name": "Benno Lin",
+            "email": "benno.lin@nexf.org",
+            "homepage": "https://bennolin.com"
+        }
+    ],
+    "isResponsive": true,
+    "license": "GPL-2.0-only",
+    "sites": [],
+    "type": "theme",
+    "Features": {
+        "DataDrivenTheme": true,
+        "SharedMasterView": true
+    },
+    "assets": {
+        "footer": {
+            "type": "twig",
+            "file": "footer.twig"
+        },
+        "header": {
+            "type": "twig",
+            "file": "header.twig"
+        },
+        "styles": {
+            "type": "css",
+            "file": "styles.css"
+        },
+        "variables": {
+            "type": "neon",
+            "file": "variables.neon"
+        }
+    }
+}

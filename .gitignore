@@ -3,6 +3,7 @@
 !/addons/themes/theme-foundation/
 !/addons/themes/theme-boilerplate/
 !/addons/themes/keystone/
+!/addons/themes/theme-nexfoundation/
 /applications/*
 !/applications/conversations/
 !/applications/dashboard/

@@ -1,0 +1,10 @@
+{
+    "license": "gpl-2.0-only",
+    "name": "@nex/theme-nexfoundation",
+    "private": true,
+    "version": "1.0.0",
+    "description": "NEX Forum Theme",
+    "dependencies": {
+        "@vanilla/theme-core": "^3.0.1"
+    }
+}

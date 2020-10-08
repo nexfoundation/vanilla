@@ -1,0 +1,40 @@
+// style for advertisement component
+
+$banner-width: 250px;
+
+#nex-advertisement {
+  margin-top: 200px;
+  min-width: $banner-width;
+  position: relative;
+  display: none;
+  visibility: hidden;
+  @include xl {
+    display: inline-block;
+    visibility: visible;
+  }
+  img.banner {
+    min-width: $banner-width;
+  }
+  img.banner:hover {
+    opacity: 0.8;
+  }
+  .text {
+    min-width: $banner-width;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    color: white;
+    position: absolute;
+    top: 40px;
+    .subTitle {
+      margin-top: 15px;
+    }
+    .more {
+      cursor: pointer;
+      margin-top: 45px;
+      padding: 5px;
+      border: white 2px solid;
+    }
+  }
+}
