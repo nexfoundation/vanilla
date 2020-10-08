@@ -117,6 +117,52 @@ if (!function_exists('DiscussionHeading')) :
 
 endif;
 
+if (!function_exists('ExcerptBody')):
+    /**
+     * Excerpt partial content of discussion.
+     * @since 2.1
+     * @param DataSet $discussion discussion.
+     * @return string Excerpt body.
+     */
+    function excerptBody($discussion) {
+        $dom = new DOMDocument();
+        $html = Gdn_Format::to($discussion->Body, $discussion->Format);
+        $dom->loadHTML($html);
+        $body = $dom->getElementsByTagName('body');
+        if ($body->length <= 0) {
+            return $html;
+        }
+        $body = $body->item(0);
+        $node = $body->firstChild;
+        return $dom->saveHTML($node);
+    }
+endif;
+
+if (!function_exists('WriteDiscussionExcerpt')):
+    /**
+     *
+     *
+     * @param $discussion
+     */
+    function writeDiscussionExcerpt($discussion) {
+        $discussionUrl = $discussion->Url;
+    ?>
+        <div class="discussion-content">
+            <div class="excerpt">
+            <?php
+                echo excerptBody($discussion);
+            ?>
+            </div>
+            <div class="read-more" data-url="<?php echo $discussionUrl?>">
+            <?php
+                echo adminCheck($discussion, ['', ' ']).anchor('...', $discussionUrl)
+            ?>
+            </div>
+        </div>
+    <?php
+    }
+endif;
+
 if (!function_exists('WriteDiscussion')) :
     /**
      *
@@ -180,6 +226,9 @@ if (!function_exists('WriteDiscussion')) :
                     $sender->fireEvent('AfterDiscussionTitle');
                     ?>
                 </div>
+                <?php
+                writeDiscussionExcerpt($discussion);
+                ?>
                 <div class="Meta Meta-Discussion">
                     <?php
                     writeTags($discussion);
