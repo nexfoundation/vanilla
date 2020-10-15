@@ -289,7 +289,7 @@
         },
         colors: {
             # fg: "#FFFFFF",
-            # bg: "#0291DB",
+            bg: "#000000",
 
             ## Apply a background image to the title bar.
             ## See example: https:#success.vanillaforums.com/kb/developers
@@ -331,7 +331,7 @@
 
             ## URL to a logo.
             desktop: {
-                # url: "https:#mysite.com/path/to/logo.png",
+                url: "https://www.nexf.org/wp-content/uploads/2019/05/logo.png",
             },
 
             ## Some vertical padding around the logo.
