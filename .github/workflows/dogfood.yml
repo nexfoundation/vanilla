@@ -18,5 +18,8 @@ jobs:
           command: |
             sudo su
             cd /home/nexforum/vanilla-project/vanilla
+            branch=$(echo $GITHUB_REF | rev | cut -d '/' -f1,2 | rev)
+            git fetch origin $branch
+            git checkout $branch
             git pull
             composer install
