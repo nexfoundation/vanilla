@@ -173,32 +173,32 @@
         ## Padding and sizing of the banner.
         ##
         spacing: {
-            # padding: {
-            #     top: 69,
-            #     bottom: 40,
-            #     horizontal: "8px",
-            # },
-            # mobile: {
-            #     padding: {
-            #         top: 0,
-            #         bottom: 16,
-            #         horizontal: "8px",
-            #     },
-            # },
+            padding: {
+                top: 0,
+                bottom: 0,
+                horizontal: "0px",
+            },
+            mobile: {
+                padding: {
+                    top: 0,
+                    bottom: 0,
+                    horizontal: "0px",
+                },
+            },
         },
         contentContainer: {
-            # minWidth: 550,
-            # padding: {
-            #     top: 69,
-            #     bottom: 40,
-            #     horizontal: 0,
-            # },
-            # mobile: {
-            #     padding: {
-            #         top: 12,
-            #         bottom: 12,
-            #     },
-            # },
+            minWidth: 550,
+            padding: {
+                top: 0,
+                bottom: 0,
+                horizontal: 0,
+            },
+            mobile: {
+                padding: {
+                    top: 0,
+                    bottom: 0,
+                },
+            },
         },
         dimensions: {
             # minHeight: 50,
@@ -280,7 +280,7 @@
         ## Sizing of the titlebar.
         ##
         sizing: {
-            # height: 48,
+            height: 60,
             # spacer: 12,
             # mobile: {
             #     height: 44,
