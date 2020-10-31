@@ -153,8 +153,8 @@
             # alignment: "center",
             # mobileAlignment: "center",
             ## Hide parts of the banner.
-            # hideDescription: false,
-            # hideTitle: false,
+            hideDescription: true,
+            hideTitle: true,
             # hideSearch: false,
         },
         outerBackground: {
@@ -331,7 +331,7 @@
 
             ## URL to a logo.
             desktop: {
-                url: "https://www.nexf.org/wp-content/uploads/2019/05/logo.png",
+                url: "/addons/themes/theme-nexfoundation/assets/brand.png",
             },
 
             ## Some vertical padding around the logo.
@@ -342,7 +342,7 @@
                 ##
                 # heightOffset: 16,
                 ## URL to a logo.
-                # url: "https:#mysite.com/path/to/logo.png",
+                url: "/addons/themes/theme-nexfoundation/assets/brand.png",
             },
 
             ## Translation values to apply to the logo.
