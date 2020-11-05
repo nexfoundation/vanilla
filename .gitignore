@@ -28,7 +28,7 @@
 !/conf/constants.php
 !/conf/readme.txt
 /dist/*
-/locales/*
+!/locales/*
 !/locales/.gitkeep
 /plugins/*
 !/plugins/AllViewed/
