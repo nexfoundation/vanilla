@@ -80,7 +80,7 @@ jobs:
         with:
           php-version: "7.2.19"
           extensions: mbstring, intl, curl, dom
-          tools: composer
+          tools: composer:v1
 
       - name: Install Composer Packages
         env:
