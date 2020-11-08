@@ -10,12 +10,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Install SSH key
+      - name: Deploy
         uses: JimCronqvist/action-ssh@master
+        env:
+          GITHUB_REF: ${{ env.GITHUB_REF }}
         with:
           hosts: nexforum@${{ secrets.NEXFORUM_DEV_SERVER }}
           privateKey: ${{ secrets.SSH_KEY_OF_NEXFORUM }}
           command: |
+            echo "branch: $GITHUB_REF"
             sudo su
             cd /home/nexforum/vanilla-project/vanilla
             echo $GITHUB_REF
