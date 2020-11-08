@@ -134,7 +134,7 @@ if (!function_exists('ExcerptBody')):
         }
         $body = $body->item(0);
         $node = $body->firstChild;
-        return $dom->saveHTML($node);
+        return utf8_decode($dom->saveHTML($node));
     }
 endif;
 
