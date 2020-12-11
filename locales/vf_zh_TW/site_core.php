@@ -1367,13 +1367,13 @@ $Definition['Tenth Anniversary'] = '十週年紀念';
 $Definition['Terms'] = '條款';
 $Definition['TermsOfService'] = '使用條款';
 $Definition['Terms of Service'] = '服務條款';
-$Definition['TermsOfServiceText'] = '您同意在使用這項服務時，您不會利用此社區發表任何明知虛假的和/或誹謗的、不準確的、辱罵性的、庸俗的、惡意的、騷擾、淫穢、褻瀆、有性導向、威脅的、侵犯他人隱私的或者以其他方式違犯任何法律的信息。您同意不發表任何受版權保護的材料，除非版權歸您所有。 
+$Definition['TermsOfServiceText'] = '您同意在使用這項服務時，您不會利用此社區發表任何明知虛假的和/或誹謗的、不準確的、辱罵性的、庸俗的、惡意的、騷擾、淫穢、褻瀆、有性導向、威脅的、侵犯他人隱私的或者以其他方式違犯任何法律的信息。您同意不發表任何受版權保護的材料，除非版權歸您所有。
 
-如果您發布的任何信息導致投訴或法律訴訟，我們保留透露您的身份（或者我們知道的關於您的任何信息）的權利。我們會記錄訪問本網站的所有互聯網協議地址。 
+如果您發布的任何信息導致投訴或法律訴訟，我們保留透露您的身份（或者我們知道的關於您的任何信息）的權利。我們會記錄訪問本網站的所有互聯網協議地址。
 
-請注意，廣告、連鎖信、傳銷和募捐在本社區都被認為是不適當的。 
+請注意，廣告、連鎖信、傳銷和募捐在本社區都被認為是不適當的。
 
-我們保留以任何理由或不需任何理由地刪除任何內容的權利。我們保留以任何理由或不需任何理由地終止任何會員資格的權利。 
+我們保留以任何理由或不需任何理由地刪除任何內容的權利。我們保留以任何理由或不需任何理由地終止任何會員資格的權利。
 
 您必須年滿 13 歲才能使用這項服務。';
 $Definition['Test'] = '測試';
@@ -1707,7 +1707,8 @@ $Definition['Your email has been successfully confirmed.'] = '您的信箱已經
 $Definition['Your invitation has been sent.'] = '您的邀請已經發送';
 $Definition['Your old password was incorrect.'] = '您的舊密碼錯誤。';
 $Definition['Your password has been changed.'] = '您已修改了密碼。';
-$Definition['Your password must be at least %d characters long.'] = '您的密碼長度必須至少包含 % 字元。';
+$Definition['Your password must be at least '] = '您的密碼長度必須至少包含 ';
+$Definition[' characters long.'] = '字元。';
 $Definition['Your password reset token has expired.'] = '您的密碼重設權限已過期，請再次填寫重設申請表單。';
 $Definition['Your picture has been removed.'] = '您的圖片已被移除。';
 $Definition['Your post will appear once it\'s been approved.'] = '您的文章將在批准後出現。';
