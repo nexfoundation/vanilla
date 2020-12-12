@@ -1125,12 +1125,12 @@ class DiscussionModel extends Gdn_Model implements FormatFieldInterface, EventFr
      */
     public function calculate(&$discussion) {
         // Fix up output
-        // Prepare data attribute for frontend
         $discussion->Name = htmlspecialchars(trim($discussion->Name) ?: t('(Untitled)'));
         $discussion->Attributes = dbdecode($discussion->Attributes);
         $discussion->Url = discussionUrl($discussion);
         $discussion->CanonicalUrl = $discussion->Attributes['CanonicalUrl'] ?? $discussion->Url;
         $discussion->Tags = $this->formatTags($discussion->Tags);
+        // Prepare data attribute for frontend
         $discussion->DataAttribute = $this->getDataAttribute($discussion);
 
         // Join in the category.
