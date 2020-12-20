@@ -1,0 +1,18 @@
+version: "3.5"
+
+services:
+  vanilla:
+    build:
+      context: ../
+      dockerfile: ./container/Dockerfile
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    networks:
+      - vanilla_network
+
+networks:
+  vanilla_network:
+    driver: "bridge"
+    name: "vanilla_network"
