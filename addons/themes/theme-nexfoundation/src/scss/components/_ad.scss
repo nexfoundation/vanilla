@@ -3,7 +3,6 @@
 $banner-width: 250px;
 
 #nex-advertisement {
-  margin-top: 200px;
   min-width: $banner-width;
   position: relative;
   display: none;
@@ -12,29 +11,78 @@ $banner-width: 250px;
     display: inline-block;
     visibility: visible;
   }
+
+  .hot-forum {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: #000000;
+  }
+
+  .hot-forum-root {
+    display: flex;
+    flex-wrap: wrap;
+    div:nth-child(1) {
+      background: #7BA4B8;
+    }
+    div:nth-child(2) {
+      background: #CBA59A;
+    }
+    div:nth-child(3) {
+      background: #A8A2AE;
+    }
+    div:nth-child(4) {
+      background: #A8DAB0;
+    }
+    div:nth-child(5) {
+      background: #DE9370;
+    }
+    div:nth-child(6) {
+      background: #9CA2B0;
+    }
+  }
+
+  .hot-forum-root_topic {
+    border-radius: 15px;
+    width: 105px;
+    height: 86px;
+    margin: 10px;
+    text-align: center;
+    line-height: 86px;
+    font-size: 18px;
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .hot-tags {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: #000000;
+  }
+
   img.banner {
     min-width: $banner-width;
   }
   img.banner:hover {
-    opacity: 0.8;
+    cursor: pointer;
   }
-  .text {
-    min-width: $banner-width;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 16px;
-    color: white;
-    position: absolute;
-    top: 40px;
-    .subTitle {
-      margin-top: 15px;
-    }
-    .more {
-      cursor: pointer;
-      margin-top: 45px;
-      padding: 5px;
-      border: white 2px solid;
-    }
-  }
+}
+
+.Panel-main .BoxCategories {
+  display: none;
+}
+
+.Panel-main .BoxDiscussionFilter {
+  display: none;
 }
