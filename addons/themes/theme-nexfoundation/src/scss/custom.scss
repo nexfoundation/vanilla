@@ -9,3 +9,8 @@
 @import "~@vanilla/theme-core/scss/dynamic";
 @import "mixins/mixins";
 @import "components/ad";
+
+.search-filter {
+  display: none !important;
+  visibility: hidden;
+}

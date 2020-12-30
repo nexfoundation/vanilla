@@ -145,4 +145,8 @@ class VanillaSearchModel extends Gdn_Model {
         $searchModel->addSearch($this->discussionSql($searchModel));
         $searchModel->addSearch($this->commentSql($searchModel));
     }
+
+    public function searchDiscussion($searchModel) {
+        $searchModel->addSearch($this->discussionSql($searchModel));
+    }
 }
