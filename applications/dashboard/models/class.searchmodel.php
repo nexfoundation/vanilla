@@ -281,4 +281,22 @@ class SearchModel extends Gdn_Model {
         $html = preg_replace('`/>\s*<br />\s*<img`', "/> <img", $html);
         return $html;
     }
+
+    public function getDiscussionsIn($discussionIDs) {
+        $sql = $this->SQL
+            ->select('d.DiscussionID as PrimaryID, d.DiscussionID, d.Name, d.Name as Title, d.Body as Summary, d.Format, d.CategoryID, d.Score')
+            ->select('d.DiscussionID', "concat('/discussion/', %s)", 'Url')
+            ->select('d.DateInserted')
+            ->select('d.InsertUserID as UserID')
+            ->select("'Discussion'", '', 'RecordType')
+            ->from('Discussion d')
+            ->orderBy('d.DateInserted', 'desc')
+            ->whereIn('d.DiscussionID', $discussionIDs)
+            ->getSelect()
+        ;
+
+        $this->SQL->reset();
+        $result = $this->Database->query($sql)->resultArray();
+        return $result;
+    }
 }

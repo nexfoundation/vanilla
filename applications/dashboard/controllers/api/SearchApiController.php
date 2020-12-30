@@ -7,6 +7,8 @@ use Vanilla\Formatting\Formats\TextFormat;
 class SearchApiController extends AbstractApiController {
 
     use \Vanilla\Formatting\FormatCompatTrait;
+    use \Vanilla\Formatting\FormatFieldTrait;
+    use \Garden\SphinxTrait;
 
     /** @var SearchModel */
     private $searchModel;
@@ -16,6 +18,49 @@ class SearchApiController extends AbstractApiController {
             $searchModel = new SearchModel();
         }
         $this->searchModel = $searchModel;
+    }
+
+    private function getSphinxIndex(string $domain = 'all_content') {
+        $dbName = c('Database.Name');
+        $commentIndex = "{$dbName}_Comment_Delta {$dbName}_Comment";
+        $discussionIndex = "{$dbName}_Discussion_Delta {$dbName}_Discussion";
+        switch ($domain) {
+            case 'all_content':
+                return join(" ", [$commentIndex, $discussionIndex]);
+            case 'discussions':
+                return $discussionIndex;
+            default:
+                return join(" ", [$commentIndex, $discussionIndex]);
+        }
+    }
+
+    private function sphinxSearch(string $query, $offset = 0, $limit = 20, $domain = 'all_content') {
+        $results = [];
+        $client = $this->sphinxClient();
+        $client->setLimits($offset, $limit);
+        $searchResult = $client->query($query, $this->getSphinxIndex($domain));
+        if (!$searchResult || $searchResult['total'] <= 0) {
+            return $results;
+        }
+        $discussions = array_map(
+            function ($match) {
+                var_dump($match);
+                return $match['attrs']['discussionid'];
+            },
+            array_values($searchResult['matches'])
+        );
+        $results = $this->searchModel->getDiscussionsIn($discussions);
+        $results = array_map(
+            function ($result) {
+                $result['Relevance'] = 0.0;
+                $this->formatField($result, 'Summary', $result['Format'] ?? 'Html');
+                $this->formatField($result, 'Body', $result['Format'] ?? 'Html');
+               return $result;
+            },
+            $results
+        );
+        return $results;
+
     }
 
     public function index(array $query) {
@@ -46,14 +91,28 @@ class SearchApiController extends AbstractApiController {
             ], 'in');
 
         $query = $in->validate($query);
-
         if ($query['query'] == '') {
             return new Data([], [], ['link' => '']);
         }
 
-        $this->searchModel->setSearchDomain($query['domain']);
-        $resultCount = $this->searchModel->searchCount($query['query']);
-        $resultSet = $this->searchModel->search($query['query'], $query['page']-1, $query['limit']);
+        if (!$this->sphinxClient()->status()) {
+            $this->searchModel->setSearchDomain($query['domain']);
+            $resultCount = $this->searchModel->searchCount($query['query']);
+            $resultSet = $this->searchModel->search(
+                $query['query'],
+                ($query['page'] - 1) * $query['limit'],
+                $query['limit']
+            );
+        } else {
+            $resultSet = $this->sphinxSearch(
+                $query['query'],
+                ($query['page'] - 1) * $query['limit'],
+                $query['limit'],
+                $query['domain']
+            );
+            $resultCount = count($resultSet);
+        }
+
         foreach ($resultSet as &$row) {
             $row = $this->normalizeOutput($row);
         }
@@ -90,7 +149,6 @@ class SearchApiController extends AbstractApiController {
     }
 
     private function normalizeOutput(array $record) {
-        // die(var_dump($record));
         $normalized = [];
         $normalized['name'] = $record['Title'];
         $normalized['url'] = $record['Url'];
