@@ -1,5 +1,10 @@
 #!/bin/bash
 
+export DOLLAR='$'
+
+# Configure Settings
+envsubst < /srv/vanilla-repositories/vanilla/container/config-defaults.php.tpl > /srv/vanilla-repositories/vanilla/conf/config-defaults.php
+
 # Configure sendmail
 sendmailConfigured=$(grep 'noreply@dev.vanilla.localhost' /etc/hosts)
 if [ -z "$sendmailConfigured" ]; then

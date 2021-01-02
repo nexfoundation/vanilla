@@ -17,6 +17,11 @@ RUN set -xe; \
   sendmail \
   # allow reading of image exif
   exiftool \
+  # wget
+  wget \
+  gnupg2 \
+  git \
+  gettext-base \
   # pecl installs
   && docker-php-ext-install exif \
   && pecl install xdebug \
@@ -43,6 +48,16 @@ RUN set -xe; \
 # Install NGINX
 RUN apt-get update -y && apt-get -y install nginx
 
+# Install yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update -y && apt-get -y install nodejs yarn
+
+# Install composer
+RUN wget https://getcomposer.org/composer-1.phar \
+  && mv composer-1.phar /usr/local/bin/composer \
+  && chmod 775 /usr/local/bin/composer
+
 COPY ./container/php/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./container/php/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY ./container/php/10-xdebug.ini /usr/local/etc/php/conf.d/10-xdebug.ini
@@ -63,7 +78,12 @@ COPY . /srv/vanilla-repositories/vanilla
 
 COPY ./container/docker-entrypoint.sh /docker-entrypoint.sh
 
-RUN mkdir -p /shared/var/run/
+RUN mkdir -p /shared/var/run/s
 RUN mkdir -p /var/log/php-fpm
 RUN mkdir -p /var/log/nginx
+
+WORKDIR /srv/vanilla-repositories/vanilla
+RUN composer install && yarn build
+RUN chmod 777 cache
+
 CMD ["/docker-entrypoint.sh"]
