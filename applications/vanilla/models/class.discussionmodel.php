@@ -1220,6 +1220,7 @@ class DiscussionModel extends Gdn_Model implements FormatFieldInterface, EventFr
     }
 
     private function getDataAttribute($discussion) {
+        $user = $this->userModel->getID($discussion->InsertUserID);
         $bookmarkCount = $this->bookmarkCount($discussion->DiscussionID);
         $tags = $this->tagModel->getDiscussionTags($discussion->DiscussionID, false);
         $tags = array_map(function($value) {
@@ -1231,6 +1232,8 @@ class DiscussionModel extends Gdn_Model implements FormatFieldInterface, EventFr
         return json_encode([
             "tags" => $tags,
             "bookmarks"=> $bookmarkCount,
+            "authorName"=>$user->Name,
+            "authorPhoto"=>$user->Photo
         ]);
     }
 
