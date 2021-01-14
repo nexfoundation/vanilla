@@ -27,6 +27,10 @@ echo '<div class="MainForm">';
             <?php
             echo $this->Form->label('Password', 'Password');
             echo $this->Form->input('Password', 'password', ['class' => 'InputBox Password']);
+            ?>
+        </li>
+        </li>
+            <?php
             echo anchor(t('Forgot?'), '/entry/passwordrequest', 'ForgotPassword', ['title' => t('Forgot your password?')]);
             ?>
         </li>
