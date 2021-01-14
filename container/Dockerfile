@@ -45,6 +45,18 @@ RUN set -xe; \
   /usr/src/php/ext/* \
   /tmp/*
 
+# Enable Azure SSH
+RUN apt-get update -y \
+  && apt-get install -y openssh-server \
+  && echo "root:Docker!" | chpasswd
+RUN mkdir -p /tmp
+RUN rm -f /etc/ssh/sshd_config
+COPY ./container/sshd_config /etc/ssh/
+COPY ./container/ssh_setup.sh /tmp
+RUN chmod -R +x /tmp/ssh_setup.sh \
+  && (sleep 1;/tmp/ssh_setup.sh 2>&1 > /dev/null) \
+  && rm -rf /tmp/*
+
 # Install NGINX
 RUN apt-get update -y && apt-get -y install nginx
 
@@ -87,3 +99,6 @@ RUN composer install && yarn build
 RUN chmod 777 cache
 
 CMD ["/docker-entrypoint.sh"]
+ENV PORT 80
+ENV SSH_PORT 2222
+EXPOSE 80 2222

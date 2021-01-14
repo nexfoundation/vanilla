@@ -11,6 +11,7 @@ services:
       DATABASE_USER: 'root'
       DATABASE_PASSWORD: ''
       SPHINX_SERVER: 'localhost'
+      SSH_PORT: 2222
     ports:
       - "80:80"
       - "8080:8080"
