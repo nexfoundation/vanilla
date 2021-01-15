@@ -32,10 +32,10 @@ function articleList() {
         let element = document.getElementById(`Discussion_${i}`);
 
         let json: ITagsData = {};
-        json.data = JSON.parse(element.dataset.meta).tags;
+        json.data = JSON.parse(element!.dataset.meta!).tags;
         json.id = i;
 
-        let menuItems: Element[] = [];
+        let menuItems: any[] = [];
         for (let g = 0; g < json.data.length; g++) {
             menuItems.push(<div className="tag">{`#${json.data[g].name}`}</div>);
         }
