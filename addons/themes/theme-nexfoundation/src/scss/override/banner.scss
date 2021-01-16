@@ -1,0 +1,22 @@
+div[class^="banner"] {
+    height: 0px;
+    z-index: 2;
+    div[class^="banner-overflowRightImageContainer"] {
+        display: none;
+    }
+    div[class^="searchBar-independentRoot"] {
+        position: fixed;
+        left: 35vw;
+        top: 10px;
+        width: 30vw;
+        form[class^="searchBar-form"] {
+            div[class^="searchBar-valueContainer suggestedTextInput-inputText inputText"] {
+                border-top-right-radius: 6px !important;
+                border-bottom-right-radius: 6px !important;
+            }
+            #search-0-searchButton {
+                display: none;
+            }
+        }
+    }
+}
