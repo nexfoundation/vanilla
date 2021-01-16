@@ -224,6 +224,8 @@ if (!function_exists('WriteDiscussion')) :
                 <?php
                 // echo ($discussion->DataAttribute);
                 // echo ($discussion->Bookmarked);
+
+
                 ?>
                 </div>
                 <div class="Title" role="heading" aria-level="3">

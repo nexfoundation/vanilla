@@ -61,16 +61,6 @@ $banner-width: 250px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
-  .hot-tags {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 28px;
-    text-align: center;
-    color: #000000;
-  }
-
   img.banner {
     min-width: $banner-width;
   }
@@ -85,4 +75,30 @@ $banner-width: 250px;
 
 .Panel-main .BoxDiscussionFilter {
   display: none;
+}
+
+.Panel-main .Box h4 {
+  padding-left: 75px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
+}
+
+.Panel-main .TagCloud .TagCloud-Item {
+  a {
+    color: #FF3559;
+    font-size: 14px;
+    display: inline-block;
+    padding-left: 5px;
+    border: none;
+  }
+  // a:before {
+  //   content: "#";
+  // }
+  // a:after {
+  //   content: "|";
+  // }
 }

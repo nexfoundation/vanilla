@@ -28,6 +28,11 @@ class SearchModel extends Gdn_Model {
     /** @var string Search string. */
     protected $_SearchText = '';
 
+    /** @var string Search domain, either 'all_content' or 'discussions' */
+    protected $_SearchDomain = 'all_content';
+
+    protected $_SearchDomains = ['all_content', 'discussions'];
+
     /**
      *
      *
@@ -94,7 +99,13 @@ class SearchModel extends Gdn_Model {
      */
     public function reset() {
         $this->_Parameters = [];
-        $this->_SearchSql = '';
+        $this->_SearchSql = [];
+    }
+
+    public function setSearchDomain($domain) {
+        if (in_array($domain, $this->_SearchDomains)) {
+            $this->_SearchDomain = $domain;
+        }
     }
 
     /**
@@ -111,39 +122,12 @@ class SearchModel extends Gdn_Model {
         if (trim($search) == '') {
             return [];
         }
-
         // Figure out the exact search mode.
-        if ($this->ForceSearchMode) {
-            $searchMode = $this->ForceSearchMode;
-        } else {
-            $searchMode = strtolower(c('Garden.Search.Mode', 'matchboolean'));
-        }
-
-        if ($searchMode == 'matchboolean') {
-            if (strpos($search, '+') !== false || strpos($search, '-') !== false) {
-                $searchMode = 'boolean';
-            } else {
-                $searchMode = 'match';
-            }
-        } else {
-            $this->_SearchMode = $searchMode;
-        }
-
-        if ($forceDatabaseEngine = c('Database.ForceStorageEngine')) {
-            if (strcasecmp($forceDatabaseEngine, 'myisam') != 0) {
-                $searchMode = 'like';
-            }
-        }
-
-        if (strlen($search) <= 4) {
-            $searchMode = 'like';
-        }
-
-        $this->_SearchMode = $searchMode;
-
+        $this->_SearchMode = $this->detectSearchMode($search);
         $this->EventArguments['Search'] = $search;
         $this->EventArguments['Limit'] = $limit;
         $this->EventArguments['Offset'] = $offset;
+        $this->EventArguments['Domain'] = $this->_SearchDomain;
         $this->fireEvent('Search');
 
         if (count($this->_SearchSql) == 0) {
@@ -195,8 +179,81 @@ class SearchModel extends Gdn_Model {
                     break;
             }
         }
-
         return $result;
+    }
+
+    /**
+     *
+     * get the total search result count for the $search string
+     *
+     * @param string $search
+     * @return int
+     *
+     */
+    public function searchCount($search) {
+        if (trim($search) == '') {
+            return 0;
+        }
+
+        $this->_SearchMode = $this->detectSearchMode($search);
+
+        $this->EventArguments['Search'] = $search;
+        $this->EventArguments['Domain'] = $this->_SearchDomain;
+        $this->fireEvent('Search');
+        if (count($this->_SearchSql) == 0) {
+            return 0;
+        }
+
+        $sql = "select count(*) as count from "."(\n".implode("\nunion all\n", $this->_SearchSql)."\n) s";
+        $this->fireEvent('AfterBuildSearchQuery');
+        if ($this->_SearchMode == 'like') {
+            $search = '%'.$search.'%';
+        }
+        foreach ($this->_Parameters as $key => $value) {
+            $this->_Parameters[$key] = $search;
+        }
+        $parameters = $this->_Parameters;
+        $this->reset();
+        $this->SQL->reset();
+        $result = $this->Database->query($sql, $parameters)->resultArray();
+        if (count($result) <= 0 ) {
+            return 0;
+        }
+        return $result[0]['count'];
+    }
+
+    /**
+     *
+     * Figure out the exact search mode.
+     *
+     * @param string $search
+     * @return string
+     */
+    private function detectSearchMode($search) {
+        $searchMode = strtolower(c('Garden.Search.Mode', 'matchboolean'));
+
+        if ($this->ForceSearchMode) {
+            $searchMode = $this->ForceSearchMode;
+        }
+
+        if ($searchMode == 'matchboolean') {
+            if (strpos($search, '+') !== false || strpos($search, '-') !== false) {
+                $searchMode = 'boolean';
+            } else {
+                $searchMode = 'match';
+            }
+        }
+
+        if ($forceDatabaseEngine = c('Database.ForceStorageEngine')) {
+            if (strcasecmp($forceDatabaseEngine, 'myisam') != 0) {
+                $searchMode = 'like';
+            }
+        }
+
+        if (strlen($search) <= 4) {
+            $searchMode = 'like';
+        }
+        return $searchMode;
     }
 
     /**
@@ -223,5 +280,23 @@ class SearchModel extends Gdn_Model {
         $html = preg_replace('`(?:<br\s*/?>\s*)+`', "<br />", $html);
         $html = preg_replace('`/>\s*<br />\s*<img`', "/> <img", $html);
         return $html;
+    }
+
+    public function getDiscussionsIn($discussionIDs) {
+        $sql = $this->SQL
+            ->select('d.DiscussionID as PrimaryID, d.DiscussionID, d.Name, d.Name as Title, d.Body as Summary, d.Format, d.CategoryID, d.Score')
+            ->select('d.DiscussionID', "concat('/discussion/', %s)", 'Url')
+            ->select('d.DateInserted')
+            ->select('d.InsertUserID as UserID')
+            ->select("'Discussion'", '', 'RecordType')
+            ->from('Discussion d')
+            ->orderBy('d.DateInserted', 'desc')
+            ->whereIn('d.DiscussionID', $discussionIDs)
+            ->getSelect()
+        ;
+
+        $this->SQL->reset();
+        $result = $this->Database->query($sql)->resultArray();
+        return $result;
     }
 }
