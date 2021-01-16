@@ -32,10 +32,10 @@ $Definition['%s by %s'] = '%s 的 %s';
 $Definition['%s changed %s\'s permissions.'] = '%s 修改了%s的許可。';
 $Definition['%s Comment'] = '%s 評論';
 $Definition['%s comment'] = '%s 評論';
-$Definition['%s comment html'] = '%s 評論';
+$Definition['%s comment html'] = '%s 則回覆';
 $Definition['%s Comments'] = '%s 評論';
 $Definition['%s comments'] = '%s 評論';
-$Definition['%s comments html'] = '%s 評論';
+$Definition['%s comments html'] = '%s 則回覆';
 $Definition['%s Connect'] = '%s 連接';
 $Definition['%s day'] = '%s 天';
 $Definition['%s days'] = '%s 天';
@@ -94,6 +94,7 @@ $Definition['%s tags in the system'] = '在系統內有 %s 個標籤';
 $Definition['%s Up Votes'] = '%s 個投票';
 $Definition['%s user'] = '%s 使用者';
 $Definition['%s users'] = '%s 位使用者';
+$Definition['bookmarked'] = ' 次收藏';
 $Definition['%s view'] = '%s 瀏覽數';
 $Definition['%s view html'] = '%s 瀏覽數';
 $Definition['%s viewing'] = '%s 查看中';
@@ -501,7 +502,7 @@ $Definition['EmailInvitation'] = '你好!
 
 	%1$s 邀請你加入 %2$s. 歡迎點擊下面的連結加入:
 
-	  %3$s
+	%3$s
 
 	  祝你開心每一天！';
 $Definition['EmailMembershipApproved'] = '%1$s你好，

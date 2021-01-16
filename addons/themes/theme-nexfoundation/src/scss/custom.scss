@@ -9,8 +9,4 @@
 @import "~@vanilla/theme-core/scss/dynamic";
 @import "mixins/mixins";
 @import "components/ad";
-
-@media screen and (min-width: 800px) {
-    @import "override/titleBar";
-    @import "override/banner";
-}
+@import "components/_articleList";
