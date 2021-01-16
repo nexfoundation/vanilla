@@ -133,6 +133,9 @@ class DiscussionModel extends Gdn_Model implements FormatFieldInterface, EventFr
     /** @var UserModel */
     private $userModel;
 
+    /** @var TagModel */
+    private $tagModel;
+
     /**
      * Clear out the staticly cached values for tests.
      */
@@ -152,6 +155,7 @@ class DiscussionModel extends Gdn_Model implements FormatFieldInterface, EventFr
         $this->floodGate = FloodControlHelper::configure($this, 'Vanilla', 'Discussion');
 
         $this->userModel = Gdn::getContainer()->get(UserModel::class);
+        $this->tagModel = Gdn::getContainer()->get(TagModel::class);
         $this->setFormatterService(Gdn::getContainer()->get(FormatService::class));
         $this->setMediaForeignTable($this->Name);
         $this->setMediaModel(Gdn::getContainer()->get(MediaModel::class));
@@ -1126,6 +1130,8 @@ class DiscussionModel extends Gdn_Model implements FormatFieldInterface, EventFr
         $discussion->Url = discussionUrl($discussion);
         $discussion->CanonicalUrl = $discussion->Attributes['CanonicalUrl'] ?? $discussion->Url;
         $discussion->Tags = $this->formatTags($discussion->Tags);
+        // Prepare data attribute for frontend
+        $discussion->DataAttribute = $this->getDataAttribute($discussion);
 
         // Join in the category.
         $category = CategoryModel::categories($discussion->CategoryID);
@@ -1211,6 +1217,21 @@ class DiscussionModel extends Gdn_Model implements FormatFieldInterface, EventFr
         $discussion->pinLocation = $pinLocation;
         $this->EventArguments['Discussion'] = &$discussion;
         $this->fireEvent('SetCalculatedFields');
+    }
+
+    private function getDataAttribute($discussion) {
+        $bookmarkCount = $this->bookmarkCount($discussion->DiscussionID);
+        $tags = $this->tagModel->getDiscussionTags($discussion->DiscussionID, false);
+        $tags = array_map(function($value) {
+            return [
+                "name" => $value["FullName"],
+                "url" => tagUrl($value, '', '/'),
+            ];
+        }, $tags);
+        return json_encode([
+            "tags" => $tags,
+            "bookmarks"=> $bookmarkCount,
+        ]);
     }
 
     /**
