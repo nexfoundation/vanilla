@@ -1,0 +1,26 @@
+name: Dog Food
+on:
+  push:
+    branches:
+      - dogfood/*
+jobs:
+  build:
+    name: Dogfooding
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deploy
+        uses: JimCronqvist/action-ssh@master
+        with:
+          hosts: nexforum@${{ secrets.NEXFORUM_DEV_SERVER }}
+          privateKey: ${{ secrets.SSH_KEY_OF_NEXFORUM }}
+          command: |
+            sudo GITHUB_REF=$GITHUB_REF su
+            cd /home/nexforum/vanilla-project/vanilla
+            branch=$(echo $GITHUB_REF | rev | cut -d '/' -f1,2 | rev)
+            echo "Branch: $branch"
+            git fetch origin $branch
+            git checkout $branch
+            git pull
+            composer install

@@ -134,7 +134,7 @@ if (!function_exists('ExcerptBody')):
         }
         $body = $body->item(0);
         $node = $body->firstChild;
-        return $dom->saveHTML($node);
+        return utf8_decode($dom->saveHTML($node));
     }
 endif;
 
@@ -205,7 +205,7 @@ if (!function_exists('WriteDiscussion')) :
 
         $discussion->CountPages = ceil($discussion->CountComments / $sender->CountCommentsPerPage);
         ?>
-        <li id="Discussion_<?php echo $discussion->DiscussionID; ?>" class="<?php echo $cssClass; ?>">
+        <li id="Discussion_<?php echo $discussion->DiscussionID; ?>" class="<?php echo $cssClass; ?>" data-meta='<?php echo $discussion->DataAttribute; ?>'>
             <?php
             if (!property_exists($sender, 'CanEditDiscussions')) {
                 $sender->CanEditDiscussions = val('PermsDiscussionsEdit', CategoryModel::categories($discussion->CategoryID)) && c('Vanilla.AdminCheckboxes.Use');
