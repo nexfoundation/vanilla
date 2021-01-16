@@ -7,15 +7,30 @@ import React, { Fragment } from "react";
 import gdn from "@library/gdn";
 
 export class Advertisement extends React.Component {
+    open = () => {
+        window.open("https://www.nexf.org/");
+    };
+
     render() {
         return (
             <Fragment>
-                <img className="banner" src={`${gdn.meta.currentThemePath}/assets/ad.png`} alt="nex foundation" />
-                <div className="text">
-                    <div className="subTitle">如果流浪是為了找回家的路</div>
-                    <div className="subTitle">我們可以把回家的路變得更美好</div>
-                    <div className="more">了解更多關於NEX</div>
+                <div className="hot-forum">熱門看板</div>
+                <div className="hot-forum-root">
+                    <div className="hot-forum-root_topic">簽證</div>
+                    <div className="hot-forum-root_topic">學校</div>
+                    <div className="hot-forum-root_topic">職涯</div>
+                    <div className="hot-forum-root_topic">生活</div>
+                    <div className="hot-forum-root_topic">心情</div>
+                    <div className="hot-forum-root_topic">新聞</div>
                 </div>
+                <div className="hot-tags">熱門標籤</div>
+                <div></div>
+                <img
+                    className="banner"
+                    src={`${gdn.meta.currentThemePath}/assets/ad.svg`}
+                    alt="nex foundation"
+                    onClick={() => this.open()}
+                />
             </Fragment>
         );
     }
