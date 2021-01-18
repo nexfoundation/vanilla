@@ -331,7 +331,7 @@
 
             ## URL to a logo.
             desktop: {
-                # url: "https:#mysite.com/path/to/logo.png",
+                url: "/addons/themes/theme-nexfoundation/assets/logo.png",
             },
 
             ## Some vertical padding around the logo.
@@ -342,7 +342,7 @@
                 ##
                 # heightOffset: 16,
                 ## URL to a logo.
-                # url: "https:#mysite.com/path/to/logo.png",
+                url: "/addons/themes/theme-nexfoundation/assets/logo.png",
             },
 
             ## Translation values to apply to the logo.
