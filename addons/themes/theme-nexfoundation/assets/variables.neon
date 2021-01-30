@@ -153,8 +153,8 @@
             # alignment: "center",
             # mobileAlignment: "center",
             ## Hide parts of the banner.
-            # hideDescription: false,
-            # hideTitle: false,
+            hideDescription: true,
+            hideTitle: true,
             # hideSearch: false,
         },
         outerBackground: {
@@ -173,32 +173,32 @@
         ## Padding and sizing of the banner.
         ##
         spacing: {
-            # padding: {
-            #     top: 69,
-            #     bottom: 40,
-            #     horizontal: "8px",
-            # },
-            # mobile: {
-            #     padding: {
-            #         top: 0,
-            #         bottom: 16,
-            #         horizontal: "8px",
-            #     },
-            # },
+            padding: {
+                top: 0,
+                bottom: 0,
+                horizontal: "0px",
+            },
+            mobile: {
+                padding: {
+                    top: 0,
+                    bottom: 0,
+                    horizontal: "0px",
+                },
+            },
         },
         contentContainer: {
-            # minWidth: 550,
-            # padding: {
-            #     top: 69,
-            #     bottom: 40,
-            #     horizontal: 0,
-            # },
-            # mobile: {
-            #     padding: {
-            #         top: 12,
-            #         bottom: 12,
-            #     },
-            # },
+            minWidth: 550,
+            padding: {
+                top: 0,
+                bottom: 0,
+                horizontal: 0,
+            },
+            mobile: {
+                padding: {
+                    top: 0,
+                    bottom: 0,
+                },
+            },
         },
         dimensions: {
             # minHeight: 50,
@@ -280,7 +280,7 @@
         ## Sizing of the titlebar.
         ##
         sizing: {
-            # height: 48,
+            height: 60,
             # spacer: 12,
             # mobile: {
             #     height: 44,
@@ -331,7 +331,7 @@
 
             ## URL to a logo.
             desktop: {
-                url: "/addons/themes/theme-nexfoundation/assets/logo.png",
+                url: "/addons/themes/theme-nexfoundation/assets/brand.png",
             },
 
             ## Some vertical padding around the logo.
@@ -342,7 +342,7 @@
                 ##
                 # heightOffset: 16,
                 ## URL to a logo.
-                url: "/addons/themes/theme-nexfoundation/assets/logo.png",
+                url: "/addons/themes/theme-nexfoundation/assets/brand.png",
             },
 
             ## Translation values to apply to the logo.
