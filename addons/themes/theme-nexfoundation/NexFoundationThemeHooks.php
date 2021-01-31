@@ -11,5 +11,9 @@ class NexFoundationThemeHooks extends Gdn_Plugin {
         $adModule = new AdModule();
         $sender->addModule($adModule);
     }
+
+    public function base_Register_handler($sender) {
+        // die;
+    }
 }
 ?>

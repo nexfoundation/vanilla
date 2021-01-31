@@ -1,0 +1,34 @@
+.Register.FormWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#Form_User_Register {
+  max-width: 550px;
+  input {
+    border-radius: 50px !important;
+  }
+
+  li {
+    margin-top: 10px;
+  }
+
+  #Form_SignUp {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .checkBox {
+    display: flex;
+    label {
+      margin-right: 10px;
+    }
+  }
+
+  .TextBoxWrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
