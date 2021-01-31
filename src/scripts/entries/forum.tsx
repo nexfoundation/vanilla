@@ -22,24 +22,24 @@ function bootstrap() {
     }
 }
 function articleList() {
-    var ItemDiscussionLength = document.getElementsByClassName("ItemDiscussion").length + 1;
+    const ItemDiscussionLength = document.getElementsByClassName("ItemDiscussion").length + 1;
 
     for (let i = 1; i < ItemDiscussionLength; i++) {
-        var element = document.getElementById(`Discussion_${i}`);
-        var json = {};
-        json.data = JSON.parse(element.dataset.meta).tags;
+        const element = document.getElementById(`Discussion_${i}`);
+        const json: any = {};
+        json.data = JSON.parse(element!.dataset.meta!).tags;
         json.id = i;
 
-        let menuItems = [];
-        for (var g = 0; g < json.data.length; g++) {
-            menuItems.push(<div class="tag">{`#${json.data[g].name}`}</div>);
+        const menuItems: JSX.Element[] = [];
+        for (let g = 0; g < json.data.length; g++) {
+            menuItems.push(<div className="tag">{`#${json.data[g].name}`}</div>);
         }
 
-        var adElement = document.getElementById(`tag_${i}`);
+        const adElement = document.getElementById(`tag_${i}`);
         if (adElement) {
             mountReact(
                 <div>
-                    <div class="tagBlock">{menuItems}</div>
+                    <div className="tagBlock">{menuItems}</div>
                 </div>,
                 adElement,
                 undefined,
