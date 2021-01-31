@@ -502,7 +502,7 @@ $Definition['EmailInvitation'] = '你好!
 
 	%1$s 邀請你加入 %2$s. 歡迎點擊下面的連結加入:
 
-	%3$s
+	  %3$s
 
 	  祝你開心每一天！';
 $Definition['EmailMembershipApproved'] = '%1$s你好，

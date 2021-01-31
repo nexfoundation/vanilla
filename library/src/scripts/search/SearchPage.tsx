@@ -142,7 +142,7 @@ function SearchPage(props: IProps) {
                         </>
                     }
                     mainBottom={<SearchPageResults />}
-                    rightTop={!isCompact && <PanelWidget>{currentFilter}</PanelWidget>}
+                    rightTop={!isCompact && <PanelWidget className="search-filter">{currentFilter}</PanelWidget>}
                 />
             </Container>
         </DocumentTitle>

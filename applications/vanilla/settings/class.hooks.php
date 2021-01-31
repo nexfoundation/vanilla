@@ -855,8 +855,12 @@ class VanillaHooks extends Gdn_Plugin {
      *
      * @param object $sender SearchModel
      */
-    public function searchModel_search_handler($sender) {
+    public function searchModel_search_handler($sender, $args = []) {
         $searchModel = new VanillaSearchModel();
+        if (isset($args['Domain']) && $args['Domain'] == 'discussions') {
+            $searchModel->searchDiscussion($sender);
+            return;
+        }
         $searchModel->search($sender);
     }
 

@@ -23,8 +23,6 @@ export class Advertisement extends React.Component {
                     <div className="hot-forum-root_topic">心情</div>
                     <div className="hot-forum-root_topic">新聞</div>
                 </div>
-                <div className="hot-tags">熱門標籤</div>
-                <div></div>
                 <img
                     className="banner"
                     src={`${gdn.meta.currentThemePath}/assets/ad.svg`}
