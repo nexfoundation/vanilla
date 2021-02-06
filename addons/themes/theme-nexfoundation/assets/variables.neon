@@ -120,21 +120,12 @@
         ## See https:#success.vanillaforums.com/kb/articles/142-navigation-links#customizing-navigation-links
         ##
         navItems: {
-            # default: [
-            # {
-            #     to: "/discussions",
-            #     children: "Discussions",
-            # },
-            # {
-            #     to: "/categories",
-            #     children: "Categories",
-            # },
-            # {
-            #     children: "Help",
-            #     permission: "kb.view",
-            #     to: "/kb",
-            # },
-            # ],
+            default: [
+                {
+                    to: "",
+                    children: "",
+                }
+            ],
             ## Some other languages
             # en: [],
             # fr: [],
