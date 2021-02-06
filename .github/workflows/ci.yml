@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - master
+      - dogfood/*
 
 jobs:
   php_lint:
