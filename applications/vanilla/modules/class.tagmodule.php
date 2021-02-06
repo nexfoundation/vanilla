@@ -187,17 +187,18 @@ class TagModule extends Gdn_Module {
         ob_start();
         ?>
         <div class="InlineTags Meta">
-            <?php echo t('Tagged'); ?>:
+            <!-- echo t('Tagged'); echo("");  -->
             <ul>
                 <?php foreach ($this->_TagData->resultArray() as $tag) :
 ?>
                     <?php if ($tag['Name'] != '') :
 ?>
-                        <li><?php
+                        <li class="articaleTags"><?php
+                            echo "#";
                             echo anchor(
                                 htmlspecialchars(tagFullName($tag)),
                                 tagUrl($tag, '', '/'),
-                                ['class' => 'Tag_'.str_replace(' ', '_', $tag['Name'])]
+                                ['class' => 'Tag_'.str_replace(' ', '_', $tag['Name'] )]
                             );
                             ?></li>
                     <?php
