@@ -1,0 +1,56 @@
+.InlineTags ul,
+.InlineTags li {
+    display: inline;
+}
+
+.InlineTags li:after {
+    content: ', ';
+}
+
+.InlineTags li:last-child:after {
+    content: '';
+}
+
+.MessageList .Meta.InlineTags {
+    min-height: 0;
+}
+
+.TagCloud {
+    padding: 0;
+    list-style: none;
+}
+
+.TagCloud li {
+    display: inline-block;
+}
+
+.TagCloud li a {
+    color: red;
+    border: 0;
+    padding: 0;
+}
+
+.TagCloud li:before {
+    content: '#';
+    color: red;
+}
+
+.TagCloud li:after {
+    content: '|';
+}
+
+.TagCloud .TagCloud-Item {
+    margin: 5px !important;
+}
+
+.AvailableTag {
+    padding: 2px 5px;
+}
+
+.Box h4 {
+    font-weight: bold;
+    font-size: 24px !important;
+    color: #000000;
+    text-align: center;
+    margin-left: 75px;
+}
