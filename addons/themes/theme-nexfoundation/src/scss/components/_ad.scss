@@ -37,22 +37,22 @@ $banner-width: 250px;
 .hot-forum-root {
   display: flex;
   flex-wrap: wrap;
-  div:nth-child(1) {
+  div:nth-child(1n) {
     background: #7BA4B8;
   }
-  div:nth-child(2) {
+  div:nth-child(2n) {
     background: #CBA59A;
   }
-  div:nth-child(3) {
+  div:nth-child(3n) {
     background: #A8A2AE;
   }
-  div:nth-child(4) {
+  div:nth-child(4n) {
     background: #A8DAB0;
   }
-  div:nth-child(5) {
+  div:nth-child(5n) {
     background: #DE9370;
   }
-  div:nth-child(6) {
+  div:nth-child(6n) {
     background: #9CA2B0;
   }
 }
@@ -77,7 +77,10 @@ $banner-width: 250px;
     font-weight: bold;
     color: #FFFFFF;
     line-height: 86px;
-    pointer-events: none;
+  }
+
+  a:hover {
+    color: white;
   }
 }
 
