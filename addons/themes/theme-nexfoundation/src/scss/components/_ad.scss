@@ -12,55 +12,6 @@ $banner-width: 250px;
     visibility: visible;
   }
 
-  .hot-forum {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 28px;
-    text-align: center;
-    color: #000000;
-  }
-
-  .hot-forum-root {
-    display: flex;
-    flex-wrap: wrap;
-    div:nth-child(1) {
-      background: #7BA4B8;
-    }
-    div:nth-child(2) {
-      background: #CBA59A;
-    }
-    div:nth-child(3) {
-      background: #A8A2AE;
-    }
-    div:nth-child(4) {
-      background: #A8DAB0;
-    }
-    div:nth-child(5) {
-      background: #DE9370;
-    }
-    div:nth-child(6) {
-      background: #9CA2B0;
-    }
-  }
-
-  .hot-forum-root_topic {
-    border-radius: 15px;
-    width: 105px;
-    height: 86px;
-    margin: 10px;
-    text-align: center;
-    line-height: 86px;
-    font-size: 18px;
-    font-family: Noto Sans TC;
-    font-style: normal;
-    font-weight: bold;
-    color: #FFFFFF;
-    cursor: pointer;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-
   .hot-tags {
     font-family: Roboto;
     font-style: normal;
@@ -79,10 +30,63 @@ $banner-width: 250px;
   }
 }
 
-.Panel-main .BoxCategories {
+.Panel-main .BoxDiscussionFilter {
   display: none;
 }
 
-.Panel-main .BoxDiscussionFilter {
-  display: none;
+.hot-forum-root {
+  display: flex;
+  flex-wrap: wrap;
+  div:nth-child(1) {
+    background: #7BA4B8;
+  }
+  div:nth-child(2) {
+    background: #CBA59A;
+  }
+  div:nth-child(3) {
+    background: #A8A2AE;
+  }
+  div:nth-child(4) {
+    background: #A8DAB0;
+  }
+  div:nth-child(5) {
+    background: #DE9370;
+  }
+  div:nth-child(6) {
+    background: #9CA2B0;
+  }
+}
+
+.hot-forum-root_topic {
+  border-radius: 15px;
+  width: 100px;
+  height: 86px;
+  margin: 10px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  a {
+    position: absolute;
+    top: 36%;
+    left: 31%;
+    font-size: 18px !important;
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    color: #FFFFFF;
+    line-height: 86px;
+    pointer-events: none;
+  }
+}
+
+.hot-forum {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold !important;
+  font-size: 24px !important;
+  line-height: 28px;
+  text-align: center;
+  color: #000000 !important;
 }
