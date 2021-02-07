@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     branches:
-      - "release/*"
+      - "release/v*"
 
 jobs:
   build:
@@ -29,6 +29,10 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
+      - name: Set Container Tag
+        run: |
+            echo "DOCKER_TAG=$(echo $GITHUB_REF | rev | cut -d '/' -f 1 | rev)" >> $GITHUB_ENV
+
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -36,10 +40,10 @@ jobs:
           file: ./container/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ github.sha }}
+          tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ env.DOCKER_TAG }}
 
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'vanilla-forum'
-          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ github.sha }}
+          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ env.DOCKER_TAG }}
