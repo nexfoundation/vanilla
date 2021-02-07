@@ -3355,6 +3355,11 @@ span.Incorrect {
   overflow: hidden;
 }
 
+.CenterEntryMethod {
+  margin: 50px auto;
+  overflow: hidden;
+}
+
 .MultipleEntryMethods .MainForm {
   float: left;
   /* Fix mainform from shoving the other entry methods down when an error occurs during login */

@@ -1654,10 +1654,17 @@ class EntryController extends Gdn_Controller {
     /**
      * Connect registration
      *
+     * Enable for NexFoundation Theme's register page
+     *
      * @deprecated since 2.0.18.
      */
     private function registerConnect() {
-        throw notFoundException();
+        $this->View = 'registerconnect';
+        // Additional signin methods are set up with plugins.
+        $methods = [];
+        $this->setData('Methods', $methods);
+        $this->fireEvent("SignIn");
+        $this->render();
     }
 
     /**
