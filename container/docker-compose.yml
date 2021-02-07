@@ -1,0 +1,27 @@
+version: "3.5"
+
+services:
+  vanilla:
+    build:
+      context: ../
+      dockerfile: ./container/Dockerfile
+    environment:
+      DATABASE_HOST: 'database'
+      DATABASE_NAME: 'vanilla_dev'
+      DATABASE_USER: 'root'
+      DATABASE_PASSWORD: ''
+      SPHINX_SERVER: 'localhost'
+      SSH_PORT: 2222
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    networks:
+      - vanilla_network
+    extra_hosts:
+      database: 172.28.168.226
+
+networks:
+  vanilla_network:
+    driver: "bridge"
+    name: "vanilla_network"
