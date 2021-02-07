@@ -1,0 +1,54 @@
+apiVersion: '2019-12-01'
+location: East Asia
+name: nex-vanilla-dev
+properties:
+  containers:
+  - name: vanilla-container
+    properties:
+      environmentVariables:
+      - name: DATABASE_HOST
+        value: ${DATABASE_HOST}
+      - name: DATABASE_NAME
+        value: ${DATABASE_NAME}
+      - name: DATABASE_USER
+        value: ${DATABASE_USER}
+      - name: DATABASE_PASSWORD
+        secureValue: ${DATABASE_PASSWORD}
+      - name: SPHINX_SERVER
+        value: ${SPHINX_SERVER}
+      image: ${REGISTRY_LOGIN_SERVER}/vanilla/container:latest
+      ports:
+      - port: 80
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+      volumeMounts:
+      - mountPath: /srv/vanilla-repositories/vanilla/conf
+        name: vanilla-test-conf
+      - mountPath: /srv/vanilla-repositories/vanilla/uploads
+        name: vanilla-test-upload
+  osType: Linux
+  restartPolicy: Always
+  ipAddress:
+    type: Public
+    ports:
+      - port: 80
+    dnsNameLabel: nex-vanilla-dev
+  volumes:
+  - name: vanilla-test-conf
+    azureFile:
+      sharename: vanilla-test-conf
+      storageAccountName: ${AZURE_STORAGE_ACCOUNT_NAME}
+      storageAccountKey: ${AZURE_STORAGE_ACCOUNT_KEY}
+  - name: vanilla-test-upload
+    azureFile:
+      sharename: vanilla-test-upload
+      storageAccountName: ${AZURE_STORAGE_ACCOUNT_NAME}
+      storageAccountKey: ${AZURE_STORAGE_ACCOUNT_KEY}
+  imageRegistryCredentials:
+  - server: ${REGISTRY_LOGIN_SERVER}
+    username: ${REGISTRY_USERNAME}
+    password: ${REGISTRY_PASSWORD}
+tags: {}
+type: Microsoft.ContainerInstance/containerGroups

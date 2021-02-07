@@ -1,6 +1,13 @@
 name: CD
 
-on: push
+on:
+  workflow_run:
+    workflows:
+      - CI
+    branches:
+      - master
+    types:
+      - completed
 
 jobs:
   build:
@@ -26,6 +33,23 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
+      - name: Build Container Configure
+        shell: bash
+        env:
+          DATABASE_HOST: ${{ secrets.NEXFORUM_DATABASE_HOST }}
+          DATABASE_NAME: ${{ secrets.NEXFORUM_DATABASE_NAME }}
+          DATABASE_USER: ${{ secrets.NEXFORUM_DATABASE_USER }}
+          DATABASE_PASSWORD: ${{ secrets.NEXFORUM_DATABASE_PASSWORD }}
+          SPHINX_SERVER: ${{ secrets.NEXFORUM_SPHINX_SERVER }}
+          REGISTRY_LOGIN_SERVER: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+          AZURE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+        run: |
+          sudo apt-get update && sudo apt-get -y install gettext-base
+          envsubst < container/templates/aci-dev.yml > aci-dev.yml
+
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -34,3 +58,11 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:latest
+
+      - name: Deploy to Azure Container Instance
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.7.0
+          inlineScript: |
+            az container create --resource-group ${{ secrets.RESOURCE_GROUP }} \
+              --file aci-dev.yml
