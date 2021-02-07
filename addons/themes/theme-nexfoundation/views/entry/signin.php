@@ -4,13 +4,12 @@ $SelectedMethod = $this->data('SelectedMethod', []);
 $CssClass = count($Methods) > 0 ? ' MultipleEntryMethods' : ' SingleEntryMethod';
 
 echo '<div class="FormTitleWrapper AjaxForm">';
-echo '<h1>'.$this->data('Title').'</h1>';
-echo '<div class="FormWrapper">';
+echo '<div class="NEXTheme FormWrapper">';
+echo '<div><h1>'.$this->data('Title').'</h1></div>';
 // Make sure to force this form to post to the correct place in case the view is
 // rendered within another view (ie. /dashboard/entry/index/):
 echo $this->Form->open(['Action' => $this->data('FormUrl', url('/entry/signin')), 'id' => 'Form_User_SignIn']);
 echo $this->Form->errors();
-
 echo '<div class="Entry'.$CssClass.'">';
 
 // Render the main signin form.
@@ -29,14 +28,29 @@ echo '<div class="MainForm">';
             echo $this->Form->input('Password', 'password', ['class' => 'InputBox Password']);
             ?>
         </li>
+        <li>
+            <?php
+            $this->fireEvent('AfterPassword');
+            echo $this->Form->button('Sign In', ['class' => 'Button Primary']);
+            ?>
         </li>
+        <li>
+            <label class="ForgetPassword">
             <?php
             echo anchor(t('Forgot?'), '/entry/passwordrequest', 'ForgotPassword', ['title' => t('Forgot your password?')]);
+            ?>
+            </label>
+        </li>
+        <li>
+            <?php
+            echo $this->Form->checkBox('RememberMe', t('Keep me signed in'), ['value' => '1', 'id' => 'SignInRememberMe']);
             ?>
         </li>
     </ul>
 <?php
 
+
+echo '</div>';
 
 echo '</div>';
 
@@ -55,15 +69,8 @@ if (count($Methods) > 0) {
     echo '</div>';
 }
 
-echo '</div>';
-
 ?>
     <div class="Buttons">
-        <?php
-        $this->fireEvent('AfterPassword');
-        echo $this->Form->button('Sign In', ['class' => 'Button Primary']);
-        echo $this->Form->checkBox('RememberMe', t('Keep me signed in'), ['value' => '1', 'id' => 'SignInRememberMe']);
-        ?>
         <?php if (strcasecmp(c('Garden.Registration.Method'), 'Connect') != 0): ?>
             <div class="CreateAccount">
                 <?php

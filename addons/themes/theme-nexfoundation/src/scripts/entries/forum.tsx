@@ -8,7 +8,6 @@ import React from "react";
 import { Advertisement } from "../components/advertisement";
 import { onContent } from "@vanilla/library/src/scripts/utility/appUtils";
 import { mountReact } from "@vanilla/react-utils";
-import ReactDOM from "react-dom";
 
 interface ITagsData {
     [key: string]: any;
