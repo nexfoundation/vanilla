@@ -1,9 +1,10 @@
 name: Publish
-on: push
-# on:
-#   push:
-#     branches:
-#       - "release/*"
+
+on:
+  push:
+    branches:
+      - "release/*"
+
 jobs:
   build:
     name: Build and Push Docker Container
@@ -28,17 +29,17 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      # - name: Build and push
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     file: ./container/Dockerfile
-      #     platforms: linux/amd64
-      #     push: true
-      #     tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ github.sha }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./container/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ github.sha }}
 
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'vanilla-forum'
-          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:latest
+          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ github.sha }}
