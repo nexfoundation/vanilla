@@ -1,0 +1,44 @@
+name: Publish
+on: push
+# on:
+#   push:
+#     branches:
+#       - "release/*"
+jobs:
+  build:
+    name: Build and Push Docker Container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      # - name: Build and push
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     file: ./container/Dockerfile
+      #     platforms: linux/amd64
+      #     push: true
+      #     tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ github.sha }}
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'vanilla-forum'
+          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:latest
