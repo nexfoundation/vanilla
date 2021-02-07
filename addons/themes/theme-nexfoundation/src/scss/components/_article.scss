@@ -1,0 +1,52 @@
+//title
+.articleTitle {
+    color: black ;
+    font-size: 18px;
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 26px;
+}
+
+.tagBorder{
+    display: flex ;
+}
+
+.articaleTags {
+    color: #FF3559 !important;
+    font-size: 14px !important;
+    display: inline-block !important;
+    margin-bottom: 20px !important;
+    font-family: Noto Sans TC !important;
+    font-style: normal !important;
+    font-weight: normal!important;
+    font-size: 14px!important;
+    line-height: 150%!important;
+    letter-spacing: 0.04em!important;
+}
+
+
+.articaleTags > a {
+
+    text-decoration:none !important;
+
+}
+
+.articleTime{
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+    margin-left: 300px;
+
+}
+
+.articleTime > a {
+    text-decoration:none !important;
+}
+
+.DiscussionHeader .AuthorWrap{
+    margin-left: 450px;
+}
+
