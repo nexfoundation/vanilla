@@ -216,6 +216,28 @@ class VanillaHooks extends Gdn_Plugin {
             ->put();
     }
 
+   /**
+     * Show tags after discussion body.
+     *
+     * @param DiscussionController $sender
+     */
+    public function discussionController_afterDiscussionBody_handler($sender) {
+        /*  */
+        // Allow disabling of inline tags.
+        if (!c('Vanilla.Tagging.DisableInline', false)) {
+            if (!property_exists($sender->EventArguments['Object'], 'CommentID')) {
+                $discussionID = property_exists($sender, 'DiscussionID') ? $sender->DiscussionID : 0;
+
+                if (!$discussionID) {
+                    return;
+                }
+                //tagm原本位置
+                // $tagModule = new TagModule($sender);
+                // echo $tagModule->inlineDisplay();
+            }
+        }
+    }
+
     /**
      * Add tag data to discussions.
      *
@@ -242,27 +264,7 @@ class VanillaHooks extends Gdn_Plugin {
         Gdn::regarding()->beforeCommentBody($sender);
     }
 
-    /**
-     * Show tags after discussion body.
-     *
-     * @param DiscussionController $sender
-     */
-    public function discussionController_afterDiscussionBody_handler($sender) {
-        /*  */
-        // Allow disabling of inline tags.
-        if (!c('Vanilla.Tagging.DisableInline', false)) {
-            if (!property_exists($sender->EventArguments['Object'], 'CommentID')) {
-                $discussionID = property_exists($sender, 'DiscussionID') ? $sender->DiscussionID : 0;
 
-                if (!$discussionID) {
-                    return;
-                }
-
-                $tagModule = new TagModule($sender);
-                echo $tagModule->inlineDisplay();
-            }
-        }
-    }
 
     /**
      * Validate tags when saving a discussion.

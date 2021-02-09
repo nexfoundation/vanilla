@@ -1224,14 +1224,21 @@ class DiscussionModel extends Gdn_Model implements FormatFieldInterface, EventFr
         $tags = $this->tagModel->getDiscussionTags($discussion->DiscussionID, false);
         $tags = array_map(function($value) {
             return [
-                "name" => $value["FullName"],
-                "url" => tagUrl($value, '', '/'),
+                'name' => $value['FullName'],
+                'url' => tagUrl($value, '', '/'),
             ];
         }, $tags);
-        return json_encode([
-            "tags" => $tags,
-            "bookmarks"=> $bookmarkCount,
-        ]);
+        $data = [
+            'tags' => $tags,
+            'bookmarks' => $bookmarkCount
+        ];
+
+        $user = $this->userModel->getID($discussion->InsertUserID);
+        if ($user) {
+            $data['authorName'] = $user->Name;
+            $data['authorPhoto'] = $user->Photo;
+        }
+        return json_encode($data);
     }
 
     /**
