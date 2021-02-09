@@ -12,6 +12,7 @@ $banner-width: 250px;
     visibility: visible;
   }
 
+
   .hot-forum {
     font-family: Roboto;
     font-style: normal;
@@ -60,7 +61,7 @@ $banner-width: 250px;
     cursor: pointer;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-
+  
   img.banner {
     min-width: $banner-width;
   }
@@ -69,12 +70,68 @@ $banner-width: 250px;
   }
 }
 
-.Panel-main .BoxCategories {
+.Panel-main .BoxDiscussionFilter {
   display: none;
 }
 
-.Panel-main .BoxDiscussionFilter {
-  display: none;
+.hot-forum-root {
+  display: flex;
+  flex-wrap: wrap;
+  div:nth-child(1n) {
+    background: #7BA4B8;
+  }
+  div:nth-child(2n) {
+    background: #CBA59A;
+  }
+  div:nth-child(3n) {
+    background: #A8A2AE;
+  }
+  div:nth-child(4n) {
+    background: #A8DAB0;
+  }
+  div:nth-child(5n) {
+    background: #DE9370;
+  }
+  div:nth-child(6n) {
+    background: #9CA2B0;
+  }
+}
+
+.hot-forum-root_topic {
+  border-radius: 15px;
+  width: 100px;
+  height: 86px;
+  margin: 10px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  a {
+    position: absolute;
+    top: 36%;
+    left: 31%;
+    font-size: 18px !important;
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    color: #FFFFFF;
+    line-height: 86px;
+  }
+
+  a:hover {
+    color: white;
+  }
+}
+
+.hot-forum {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold !important;
+  font-size: 24px !important;
+  line-height: 28px;
+  text-align: center;
+  color: #000000 !important;
 }
 
 .Panel-main .Box h4 {

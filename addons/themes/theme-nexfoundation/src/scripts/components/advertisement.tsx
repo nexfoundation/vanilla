@@ -14,15 +14,6 @@ export class Advertisement extends React.Component {
     render() {
         return (
             <Fragment>
-                <div className="hot-forum">熱門看板</div>
-                <div className="hot-forum-root">
-                    <div className="hot-forum-root_topic">簽證</div>
-                    <div className="hot-forum-root_topic">學校</div>
-                    <div className="hot-forum-root_topic">職涯</div>
-                    <div className="hot-forum-root_topic">生活</div>
-                    <div className="hot-forum-root_topic">心情</div>
-                    <div className="hot-forum-root_topic">新聞</div>
-                </div>
                 <img
                     className="banner"
                     src={`${gdn.meta.currentThemePath}/assets/ad.svg`}
