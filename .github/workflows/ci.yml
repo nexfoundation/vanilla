@@ -12,7 +12,7 @@ on:
 jobs:
   php_lint:
     name: PHP 7.2 Lint and Static Analysis
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
       - name: Checkout
@@ -74,7 +74,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vanilla/ci-scripts
-          ref: 3c014de5a7a4fb65d755d3279789cb16fa799957
           path: ./ci-scripts
 
       - name: Setup PHP
