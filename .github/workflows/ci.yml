@@ -12,7 +12,7 @@ on:
 jobs:
   php_lint:
     name: PHP 7.2 Lint and Static Analysis
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
       - name: Checkout
@@ -45,7 +45,7 @@ jobs:
 
   php_test:
     name: PHP 7.2 ${{ matrix.build_types }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     strategy:
       fail-fast: false
@@ -140,7 +140,7 @@ jobs:
 
   frontend_test:
     name: Frontend Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
       - name: Checkout
