@@ -2,26 +2,28 @@ version: "3.5"
 
 services:
   vanilla:
-    build:
-      context: ../
-      dockerfile: ./container/Dockerfile
+    image: nexforumcontainers.azurecr.io/vanilla/container:${DOCKER_TAG}
+    volumes:
+      - config:/srv/vanilla-repositories/vanilla/conf
+      - upload:/srv/vanilla-repositories/vanilla/uploads
     environment:
-      DATABASE_HOST: 'database'
-      DATABASE_NAME: 'vanilla_dev'
-      DATABASE_USER: 'root'
-      DATABASE_PASSWORD: ''
-      SPHINX_SERVER: 'localhost'
-      SSH_PORT: 2222
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      SPHINX_SERVER: sphinx
     ports:
       - "80:80"
       - "8080:8080"
       - "443:443"
-    networks:
-      - vanilla_network
-    extra_hosts:
-      database: 172.28.168.226
+      - "2222:2222"
 
-networks:
-  vanilla_network:
-    driver: "bridge"
-    name: "vanilla_network"
+  sphinx:
+    image: nexforumcontainers.azurecr.io/vanilla/sphinx
+    volumes:
+      - sphinx:/usr/local/etc/sphinx/data/
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}

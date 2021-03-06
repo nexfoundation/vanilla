@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build and Push Docker Container
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
 
@@ -42,8 +42,25 @@ jobs:
           push: true
           tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ env.DOCKER_TAG }}
 
+      - name: Build Docker-Composer
+        shell: bash
+        env:
+          DATABASE_HOST: ${{ secrets.NEXFORUM_DATABASE_HOST }}
+          DATABASE_NAME: ${{ secrets.NEXFORUM_DATABASE_NAME }}
+          DATABASE_USER: ${{ secrets.NEXFORUM_DATABASE_USER }}
+          DATABASE_PASSWORD: ${{ secrets.NEXFORUM_DATABASE_PASSWORD }}
+          DOCKER_TAG: ${{ env.DOCKER_TAG }}
+        run: |
+          sudo apt-get update && sudo apt-get -y install gettext-base
+          envsubst < container/docker-compose.yml > docker-compose.yml
+
       - name: Deploy to Azure App Service
-        uses: azure/webapps-deploy@v2
+        uses: azure/CLI@v1
         with:
-          app-name: 'vanilla-forum'
-          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/vanilla/container:${{ env.DOCKER_TAG }}
+          azcliversion: 2.7.0
+          inlineScript: |
+            az webapp config container set \
+              --resource-group ${{ secrets.RESOURCE_GROUP }} \
+              --name vanilla-forum \
+              --multicontainer-config-type compose \
+              --multicontainer-config-file docker-compose.yml
