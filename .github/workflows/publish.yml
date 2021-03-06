@@ -50,6 +50,7 @@ jobs:
           DATABASE_USER: ${{ secrets.NEXFORUM_DATABASE_USER }}
           DATABASE_PASSWORD: ${{ secrets.NEXFORUM_DATABASE_PASSWORD }}
           DOCKER_TAG: ${{ env.DOCKER_TAG }}
+          DOLLAR: '$'
         run: |
           sudo apt-get update && sudo apt-get -y install gettext-base
           envsubst < container/docker-compose.yml > docker-compose.yml

@@ -21,7 +21,7 @@ services:
   sphinx:
     image: nexforumcontainers.azurecr.io/vanilla/sphinx
     volumes:
-      - sphinx:/usr/local/etc/sphinx/data/
+      - ${DOLLAR}{WEBAPP_STORAGE_HOME}/sphinx:/usr/local/etc/sphinx/data/
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_NAME: ${DATABASE_NAME}
