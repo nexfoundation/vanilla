@@ -120,21 +120,12 @@
         ## See https:#success.vanillaforums.com/kb/articles/142-navigation-links#customizing-navigation-links
         ##
         navItems: {
-            # default: [
-            # {
-            #     to: "/discussions",
-            #     children: "Discussions",
-            # },
-            # {
-            #     to: "/categories",
-            #     children: "Categories",
-            # },
-            # {
-            #     children: "Help",
-            #     permission: "kb.view",
-            #     to: "/kb",
-            # },
-            # ],
+            default: [
+                {
+                    to: "",
+                    children: "",
+                }
+            ],
             ## Some other languages
             # en: [],
             # fr: [],
@@ -331,7 +322,7 @@
 
             ## URL to a logo.
             desktop: {
-                url: "/addons/themes/theme-nexfoundation/assets/brand.png",
+                url: "/addons/themes/theme-nexfoundation/assets/logo.svg",
             },
 
             ## Some vertical padding around the logo.
@@ -342,7 +333,7 @@
                 ##
                 # heightOffset: 16,
                 ## URL to a logo.
-                url: "/addons/themes/theme-nexfoundation/assets/brand.png",
+                url: "/addons/themes/theme-nexfoundation/assets/logo.svg",
             },
 
             ## Translation values to apply to the logo.
