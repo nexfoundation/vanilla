@@ -51,4 +51,6 @@ jobs:
             echo ${{ secrets.REGISTRY_PASSWORD }} | docker login -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin ${{ secrets.REGISTRY_LOGIN_SERVER }}
             cd /home/nexforum/vanilla-project/vanilla
             docker-compose down
+            docker-compose pull
             docker-compose up -d
+            docker image prune -f
