@@ -31,7 +31,9 @@ function bootstrap() {
 
     const anchorsInside = document.querySelectorAll(".hot-forum-root_topic .ItemLink");
     for (const anchorInside of anchorsInside) {
-        anchorInside?.addEventListener("click", (e) => {e.stopPropagation();});
+        anchorInside?.addEventListener("click", e => {
+            e.stopPropagation();
+        });
     }
 }
 
