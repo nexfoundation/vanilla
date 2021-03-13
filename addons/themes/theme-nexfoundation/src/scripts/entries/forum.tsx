@@ -23,7 +23,25 @@ function bootstrap() {
     if (adElement) {
         mountReact(<Advertisement />, adElement, undefined);
     }
+
+    const categoryDivs = document.querySelectorAll(".hot-forum-root_topic");
+    for (const categoryDiv of categoryDivs) {
+        categoryDiv?.addEventListener("click", clickAnchorInside);
+    }
+
+    const anchorsInside = document.querySelectorAll(".hot-forum-root_topic .ItemLink");
+    for (const anchorInside of anchorsInside) {
+        anchorInside?.addEventListener("click", e => {
+            e.stopPropagation();
+        });
+    }
 }
+
+function clickAnchorInside(this: any) {
+    const anchor = this.getElementsByTagName("A")[0];
+    anchor.click();
+}
+
 function articleList() {
     let ItemDiscussionLength = document.getElementsByClassName("ItemDiscussion").length + 1;
 
