@@ -242,7 +242,8 @@ endforeach; ?>
 ?>
                         <li class="TagCloud-Item"><?php
                             echo anchor(
-                                htmlspecialchars(tagFullName($tag)).' '.wrap(number_format($tag['CountDiscussions']), 'span', ['class' => 'Count']),
+                                // modify the Vanilla codebase
+                                htmlspecialchars(tagFullName($tag)),
                                 tagUrl($tag, '', '/'),
                                 ['class' => 'Tag_'.str_replace(' ', '_', $tag['Name'])]
                             );
